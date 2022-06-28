@@ -72,14 +72,29 @@ refs.gallery.addEventListener('click', onGalleryPreviewClick);
 
 function onGalleryPreviewClick(evt) {
   evt.preventDefault();
-  const image = evt.target;
-  console.log(image.dataset.source);
 
-  /* 3. Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки. */
+  const image = evt.target;
+  const isGalleryItem = image.classList.contains('gallery__image');
+
+  if (!isGalleryItem) {
+    return;
+  }
+
+  /* 3. Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки. 
+      4. Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
+      5. Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.*/
 
   const instance = basicLightbox.create(`
+  
     <img src=${image.dataset.source} width="1280px">
+    
 `);
 
   instance.show();
+
+  /* Добавь закрытие модального окна по нажатию клавиши Escape. */
+
+  document.addEventListener('keypress', evt => {
+    if (evt.key === 'Escape') instance.close();
+  });
 }
