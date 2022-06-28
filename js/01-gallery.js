@@ -42,44 +42,47 @@
 
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-const colorPalette = document.querySelector('.color-palette');
-const output = document.querySelector('.output');
 
-colorPalette.addEventListener('click', selectColor);
+const refs = {
+  gallery: document.querySelector('.gallery'),
+};
 
-// This is where delegation «magic» happens
-function selectColor(event) {
-  if (event.target.nodeName !== 'BUTTON') {
-    return;
-  }
+/* 1. Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи. */
 
-  const selectedColor = event.target.dataset.color;
-  output.textContent = `Selected color: ${selectedColor}`;
-  output.style.color = selectedColor;
-}
-
-// Some helper functions to render palette items
-createGalleryItems();
-
-function createGalleryItems() {
-  const galleryItemsNew = [...galleryItems]
-    .map(({ url, alt }) => {
-      return `<li><img src= ${url} alt= ${alt}></li>`;
-    })
-    .join('');
-  colorPalette.append(...galleryItemsNew);
-}
-
-const refGallery = document.querySelector('.gallery');
-
-const makeGallery = images
-  .map(({ url, alt }) => {
-    return `<li><img src= ${url} alt= ${alt}></li>`;
+const makeGalleryItem = galleryItems
+  .map(({ preview, original, description }) => {
+    return `<div class="gallery__item">
+              <a class="gallery__link" href=${original}>
+                <img
+                  class="gallery__image"
+                  src=${preview}
+                  data-source=${original}
+                  alt=${description}
+                />
+              </a>
+            </div>`;
   })
   .join('');
 
-/* const makeGalleryItems = images.map(makeGalleryItemMarkup).join(''); */
+refs.gallery.insertAdjacentHTML('beforeend', makeGalleryItem);
 
-refGallery.insertAdjacentHTML('beforeend', makeGallery);
+/* 2. Реализация делегирования на div.gallery и получение url большого изображения. */
 
-console.log(galleryItems);
+refs.gallery.addEventListener('click', onGalleryPreviewClick);
+
+function onGalleryPreviewClick(evt) {
+  evt.preventDefault();
+  const image = evt.target;
+  console.log(image.dataset.source);
+}
+
+const instance = basicLightbox.create(`
+    <div class="modal">
+        <p>
+            Your first lightbox with just a few lines of code.
+            Yes, it's really that simple.
+        </p>
+    </div>
+`);
+
+instance.show();
