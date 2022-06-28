@@ -74,15 +74,12 @@ function onGalleryPreviewClick(evt) {
   evt.preventDefault();
   const image = evt.target;
   console.log(image.dataset.source);
-}
 
-const instance = basicLightbox.create(`
-    <div class="modal">
-        <p>
-            Your first lightbox with just a few lines of code.
-            Yes, it's really that simple.
-        </p>
-    </div>
+  /* 3. Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки. */
+
+  const instance = basicLightbox.create(`
+    <img src=${image.dataset.source} width="1280px">
 `);
 
-instance.show();
+  instance.show();
+}
