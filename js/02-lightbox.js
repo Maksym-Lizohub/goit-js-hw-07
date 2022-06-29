@@ -67,8 +67,4 @@ function onGalleryPreviewClick(evt) {
   });
 
   /* Добавь закрытие модального окна по нажатию клавиши Escape. */
-
-  document.addEventListener('keypress', evt => {
-    if (evt.key === 'Escape') instance.close();
-  });
 }
