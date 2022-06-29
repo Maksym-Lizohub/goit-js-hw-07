@@ -92,9 +92,12 @@ function onGalleryPreviewClick(evt) {
 
   instance.show();
 
-  /* Добавь закрытие модального окна по нажатию клавиши Escape. */
-
-  document.addEventListener('keypress', evt => {
-    if (evt.key === 'Escape') instance.close();
+  document.addEventListener('keydown', evt => {
+    if (evt.code === 'Escape') {
+      instance.close();
+    }
+    console.log(evt.code);
   });
+
+  /* Добавь закрытие модального окна по нажатию клавиши Escape. */
 }
