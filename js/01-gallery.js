@@ -52,12 +52,12 @@ const refs = {
 const makeGalleryItem = galleryItems
   .map(({ preview, original, description }) => {
     return `<div class="gallery__item">
-              <a class="gallery__link" href=${original}>
+              <a class="gallery__link" href="${original}">
                 <img
                   class="gallery__image"
-                  src=${preview}
-                  data-source=${original}
-                  alt=${description}
+                  src="${preview}"
+                  data-source="${original}"
+                  alt="${description}"
                 />
               </a>
             </div>`;
@@ -86,7 +86,7 @@ function onGalleryPreviewClick(evt) {
 
   const instance = basicLightbox.create(`
   
-    <img src=${image.dataset.source} width="1280px">
+    <img src="${image.dataset.source}" width="1280px">
     
 `);
 
