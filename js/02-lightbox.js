@@ -1,4 +1,5 @@
 /* Задание 2 - библиотека SimpleLightbox
+
 Сделай такую же галерею как в первом задании, но используя библиотеку SimpleLightbox,
  которая возьмет на себя обработку кликов по изображениям, открытие и закрытие 
  модального окна, а также пролистывание изображений при помощи клавиатуры. 
@@ -43,28 +44,13 @@ const makeGalleryItem = galleryItems
 
 refs.gallery.insertAdjacentHTML('beforeend', makeGalleryItem);
 
-/* 2. Реализация делегирования на div.gallery и получение url большого изображения. */
+/* 3. Инициализация библиотеки после того как элементы галереи созданы и добавлены в div.gallery. */
 
-refs.gallery.addEventListener('click', onGalleryPreviewClick);
+let lightbox = new SimpleLightbox('.gallery__item a', {
+  /* 4. Посмотри в документации секцию «Options» и добавь отображение подписей к изображениям из атрибута alt. 
+  Пусть подпись будет снизу и появляется через 250 миллисекунд после открытия изображения. */
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
-function onGalleryPreviewClick(evt) {
-  evt.preventDefault();
-
-  const image = evt.target;
-  const isGalleryItem = image.classList.contains('gallery__image');
-
-  if (!isGalleryItem) {
-    return;
-  }
-
-  /* 3. Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки. 
-      4. Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
-      5. Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.*/
-
-  let gallery = new SimpleLightbox('.gallery a');
-  gallery.on('<img src=${image.dataset.source} width="1280px">', function () {
-    // do something…
-  });
-
-  /* Добавь закрытие модального окна по нажатию клавиши Escape. */
-}
+lightbox.on('<img src=${image.dataset.source} width="1280px">');

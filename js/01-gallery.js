@@ -90,14 +90,21 @@ function onGalleryPreviewClick(evt) {
     
 `);
 
-  instance.show();
-
-  document.addEventListener('keydown', evt => {
-    if (evt.code === 'Escape') {
-      instance.close();
-    }
-    console.log(evt.code);
-  });
+  instance.show(addListenerOnKeyDown());
 
   /* Добавь закрытие модального окна по нажатию клавиши Escape. */
+
+  function addListenerOnKeyDown() {
+    document.addEventListener('keydown', removeEventListenerOnKeyDown);
+  }
+
+  /* Убрать закрытие модального окна по нажатию клавиши Escape. */
+
+  function removeEventListenerOnKeyDown(evt) {
+    if (evt.code === 'Escape') {
+      instance.close();
+      document.removeEventListener('keydown', removeEventListenerOnKeyDown);
+    }
+    console.log(evt.code);
+  }
 }
